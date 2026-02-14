@@ -1,0 +1,19 @@
+/* Custom overrides for Timetable Bot site */
+
+/* Ensure in-page TABLE OF CONTENTS is visible and usable on small screens */
+@media (max-width: 50rem) {
+  /* the TOC is rendered as a table-wrapper immediately after #toctitle */
+  #toctitle + .table-wrapper {
+    display: block !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0.25rem 0 !important;
+  }
+  #toctitle { display: block !important; }
+  /* make TOC links easier to tap on mobile */
+  #toctitle + .table-wrapper ul { padding-left: 1rem; margin: 0.25rem 0; }
+  #toctitle + .table-wrapper li { margin: 0.25rem 0; }
+}

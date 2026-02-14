@@ -1,0 +1,24 @@
+<!-- Head custom: apply saved theme ASAP to reduce theme flash -->
+<link rel="stylesheet" href="/timetablebot-site/assets/css/just-the-docs-custom.css">
+<script>
+(function(){
+  try {
+    var keys = ['just-the-docs-theme','jtd-theme','theme','color-scheme'];
+    var saved = null;
+    for (var i = 0; i < keys.length; i++) {
+      try { var v = localStorage.getItem(keys[i]); if (v) { saved = v; break; } } catch(e) {}
+    }
+    if (saved) {
+      saved = (saved === 'dark') ? 'dark' : 'light';
+      var link = document.querySelector('link[rel="stylesheet"]');
+      if (link) {
+        // prefer explicit replacement so baseurl differences don't matter
+        var href = link.getAttribute('href');
+        var newHref = href.replace(/just-the-docs-(default|light|dark)\.css$/, 'just-the-docs-' + (saved === 'dark' ? 'dark' : 'default') + '.css');
+        if (newHref !== href) link.setAttribute('href', newHref);
+      }
+      try { document.documentElement.setAttribute('data-color-scheme', saved); } catch(e) {}
+    }
+  } catch (e) { /* ignore */ }
+})();
+</script>
