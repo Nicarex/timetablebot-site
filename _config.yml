@@ -1,7 +1,7 @@
 title: Timetable Bot
 remote_theme: pmarsceill/just-the-docs
 
-search_enabled: false
+search_enabled: true
 
 heading_anchors: true
 

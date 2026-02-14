@@ -4,5 +4,17 @@ title: Компьютер
 parent: Google Календарь
 grand_parent: Календарь
 nav_order: 1
-permalink: "/#%D0%BA%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80"
 ---
+
+# Добавление календаря на компьютер
+
+1. Переходим по ссылке [Google Календарь](https://calendar.google.com)
+2. Нажимаем на плюс в "Другие календари"
+   ![google-desktop-1](../images/google-desktop-1.png)
+3. Выбираем "Добавить по URL"
+   ![google-desktop-2](../images/google-desktop-2.png)
+4. Вставляем ссылку в поле "URL календаря"
+   ![google-desktop-3](../images/google-desktop-3.png)
+5. Нажимаем "Добавить календарь"
+6. Всё, календарь добавлен. Закрываем меню и пользуемся.
+   ![google-desktop-4](../images/google-desktop-4.png)
