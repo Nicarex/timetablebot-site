@@ -20,53 +20,30 @@ nav_order: 1
 <button class="btn js-toggle-dark-mode">Включить темный режим</button>
 
 <script>
-// Более надежный скрипт с проверкой на загрузку JTD
-(function() {
-  // Функция инициализации кнопки
-  function initThemeToggle() {
-    const toggleDarkMode = document.querySelector('.js-toggle-dark-mode');
-    if (!toggleDarkMode || typeof jtd === 'undefined') {
-      // Если JTD еще не загружен, попробуем позже
-      setTimeout(initThemeToggle, 100);
-      return;
-    }
-
-    // Функция для установки текста кнопки
-    function updateButtonText() {
-      const currentTheme = jtd.getTheme();
-      if (currentTheme === 'dark') {
-        toggleDarkMode.textContent = 'Включить светлую тему';
-      } else {
-        toggleDarkMode.textContent = 'Включить темную тему';
-      }
-    }
-
-    // Загрузить сохраненную тему при загрузке страницы
-    const savedTheme = localStorage.getItem('jtd-theme');
-    if (savedTheme && savedTheme !== jtd.getTheme()) {
-      jtd.setTheme(savedTheme);
-    }
+document.addEventListener('DOMContentLoaded', function() {
+  const button = document.querySelector('.js-toggle-dark-mode');
+  
+  function updateButtonText() {
+    const isDark = document.documentElement.getAttribute('data-color-scheme') === 'dark';
+    button.textContent = isDark ? 'Включить светлую тему' : 'Включить темную тему';
+  }
+  
+  // Загрузить сохраненную тему
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-color-scheme', savedTheme);
+  }
+  updateButtonText();
+  
+  // Обработка клика
+  button.addEventListener('click', function() {
+    const currentScheme = document.documentElement.getAttribute('data-color-scheme');
+    const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-color-scheme', newScheme);
+    localStorage.setItem('theme', newScheme);
     updateButtonText();
-
-    // Обработчик клика на кнопку
-    toggleDarkMode.addEventListener('click', function(){
-      const currentTheme = jtd.getTheme();
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      jtd.setTheme(newTheme);
-      
-      // Сохранить выбор в localStorage
-      localStorage.setItem('jtd-theme', newTheme);
-      updateButtonText();
-    });
-  }
-
-  // Инициализировать при готовности DOM
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeToggle);
-  } else {
-    initThemeToggle();
-  }
-})();
+  });
+});
 </script>
 
 ---
@@ -79,16 +56,16 @@ nav_order: 1
 
 | Платформа | Описание | Ссылка |
 |-----------|---------|--------|
-| **Почта** | Получение расписания на электронную почту | [Читать](/timetablebot-site/link-pages/mail/) |
-| **ВКонтакте** | Личные сообщения и чаты | [Читать](/timetablebot-site/link-pages/vk/) |
-| **Telegram** | Личные чаты и группы | [Читать](/timetablebot-site/link-pages/telegram/) |
-| **Discord** | Серверы | [Читать](/timetablebot-site/link-pages/discord/) |
-| **Календарь** | Google Календарь и Apple Календарь | [Читать](/timetablebot-site/link-pages/calendar/) |
+| **Почта** | Получение расписания на электронную почту | [Читать](/timetablebot-site/link-pages/mail.html) |
+| **ВКонтакте** | Личные сообщения и чаты | [Читать](/timetablebot-site/link-pages/vk.html) |
+| **Telegram** | Личные чаты и группы | [Читать](/timetablebot-site/link-pages/telegram.html) |
+| **Discord** | Серверы | [Читать](/timetablebot-site/link-pages/discord.html) |
+| **Календарь** | Google Календарь и Apple Календарь | [Читать](/timetablebot-site/link-pages/calendar.html) |
 
 ---
 
 ## Дополнительно
 
-- [Описание вывода расписания](/timetablebot-site/link-pages/outputdescription/)
-- [О разработчике](/timetablebot-site/link-pages/developer/)
-- [Помощь и поддержка](/timetablebot-site/link-pages/help/)
+- [Описание вывода расписания](/timetablebot-site/link-pages/outputdescription.html)
+- [О разработчике](/timetablebot-site/link-pages/developer.html)
+- [Помощь и поддержка](/timetablebot-site/link-pages/help.html)

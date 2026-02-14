@@ -3,7 +3,6 @@ layout: default
 title: Почта
 nav_order: 2
 has_children: true
-permalink: "/#почта"
 ---
 
 # Почта
