@@ -1,24 +1,25 @@
-<!-- Head custom: apply saved theme ASAP to reduce theme flash -->
+<!-- Head custom: apply theme according to system preference -->
 <link rel="stylesheet" href="/timetablebot-site/assets/css/just-the-docs-custom.css">
 <script>
 (function(){
-  try {
-    var keys = ['just-the-docs-theme','jtd-theme','theme','color-scheme'];
-    var saved = null;
-    for (var i = 0; i < keys.length; i++) {
-      try { var v = localStorage.getItem(keys[i]); if (v) { saved = v; break; } } catch(e) {}
-    }
-    if (saved) {
-      saved = (saved === 'dark') ? 'dark' : 'light';
+  function applySystemTheme(){
+    try{
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = prefersDark ? 'dark' : 'default';
       var link = document.querySelector('link[rel="stylesheet"]');
-      if (link) {
-        // prefer explicit replacement so baseurl differences don't matter
+      if (link){
         var href = link.getAttribute('href');
-        var newHref = href.replace(/just-the-docs-(default|light|dark)\.css$/, 'just-the-docs-' + (saved === 'dark' ? 'dark' : 'default') + '.css');
+        var newHref = href.replace(/just-the-docs-(default|light|dark)\.css$/, 'just-the-docs-' + (theme === 'dark' ? 'dark' : 'default') + '.css');
         if (newHref !== href) link.setAttribute('href', newHref);
       }
-      try { document.documentElement.setAttribute('data-color-scheme', saved); } catch(e) {}
+      try{ document.documentElement.setAttribute('data-color-scheme', prefersDark ? 'dark' : 'light'); } catch(e){}
+    }catch(e){}
+  }
+  applySystemTheme();
+  try{
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySystemTheme);
     }
-  } catch (e) { /* ignore */ }
+  } catch(e){}
 })();
 </script>
