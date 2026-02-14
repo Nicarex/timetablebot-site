@@ -1,9 +1,17 @@
 title: Timetable Bot
 remote_theme: pmarsceill/just-the-docs
 
+# enable plugin to expose Git last-modified info (used by just-the-docs footer)
+plugins:
+  - jekyll-last-modified-at
+
 search_enabled: true
 
 heading_anchors: true
+
+# show "last edited" timestamp in the footer (absolute format)
+last_edit_timestamp: true
+last_edit_time_format: "%Y-%m-%d %H:%M"
 
 aux_links:
   "Академия гражданской защиты МЧС России":
