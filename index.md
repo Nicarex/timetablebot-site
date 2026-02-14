@@ -20,30 +20,56 @@ nav_order: 1
 <button class="btn js-toggle-dark-mode">Включить темный режим</button>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const button = document.querySelector('.js-toggle-dark-mode');
-  
-  function updateButtonText() {
-    const isDark = document.documentElement.getAttribute('data-color-scheme') === 'dark';
-    button.textContent = isDark ? 'Включить светлую тему' : 'Включить темную тему';
+(function(){
+  const btn = document.querySelector('.js-toggle-dark-mode');
+  if (!btn) return;
+
+  const STORAGE_KEYS = ['just-the-docs-theme', 'jtd-theme', 'theme', 'color-scheme'];
+  function normalize(t) { return t === 'dark' ? 'dark' : 'light'; }
+
+  function saveAll(theme){
+    try{ STORAGE_KEYS.forEach(k => localStorage.setItem(k, theme)); } catch(e){}
   }
-  
-  // Загрузить сохраненную тему
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-color-scheme', savedTheme);
+
+  function applyTheme(theme){
+    theme = normalize(theme);
+    if (window.jtd && typeof jtd.setTheme === 'function') {
+      jtd.setTheme(theme);
+    } else {
+      document.documentElement.setAttribute('data-color-scheme', theme);
+    }
+    saveAll(theme);
   }
-  updateButtonText();
-  
-  // Обработка клика
-  button.addEventListener('click', function() {
-    const currentScheme = document.documentElement.getAttribute('data-color-scheme');
-    const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-color-scheme', newScheme);
-    localStorage.setItem('theme', newScheme);
-    updateButtonText();
+
+  function getSaved(){
+    if (window.jtd && typeof jtd.getTheme === 'function'){
+      const t = jtd.getTheme(); if (t) return normalize(t);
+    }
+    for (const k of STORAGE_KEYS){
+      const v = localStorage.getItem(k); if (v) return normalize(v);
+    }
+    return null;
+  }
+
+  function updateButton(){
+    const current = (window.jtd && typeof jtd.getTheme === 'function') ? jtd.getTheme() : document.documentElement.getAttribute('data-color-scheme');
+    const theme = normalize(current);
+    btn.textContent = theme === 'dark' ? 'Включить светлую тему' : 'Включить темную тему';
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const saved = getSaved();
+    if (saved) applyTheme(saved);
+    updateButton();
   });
-});
+
+  btn.addEventListener('click', function(){
+    const current = (window.jtd && typeof jtd.getTheme === 'function') ? jtd.getTheme() : document.documentElement.getAttribute('data-color-scheme') || 'light';
+    const next = normalize(current) === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    updateButton();
+  });
+})();
 </script>
 
 ---
