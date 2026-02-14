@@ -17,60 +17,10 @@ nav_order: 1
 * Поддерживается почта, ВКонтакте, Telegram, Discord и календарь
 {: .fs-6 .fw-300 }
 
-<button class="btn js-toggle-dark-mode">Включить темный режим</button>
-
-<script>
-(function(){
-  const btn = document.querySelector('.js-toggle-dark-mode');
-  if (!btn) return;
-
-  const STORAGE_KEYS = ['just-the-docs-theme', 'jtd-theme', 'theme', 'color-scheme'];
-  function normalize(t) { return t === 'dark' ? 'dark' : 'light'; }
-
-  function saveAll(theme){
-    try{ STORAGE_KEYS.forEach(k => localStorage.setItem(k, theme)); } catch(e){}
-  }
-
-  function applyTheme(theme){
-    theme = normalize(theme);
-    if (window.jtd && typeof jtd.setTheme === 'function') {
-      jtd.setTheme(theme);
-    } else {
-      document.documentElement.setAttribute('data-color-scheme', theme);
-    }
-    saveAll(theme);
-  }
-
-  function getSaved(){
-    if (window.jtd && typeof jtd.getTheme === 'function'){
-      const t = jtd.getTheme(); if (t) return normalize(t);
-    }
-    for (const k of STORAGE_KEYS){
-      const v = localStorage.getItem(k); if (v) return normalize(v);
-    }
-    return null;
-  }
-
-  function updateButton(){
-    const current = (window.jtd && typeof jtd.getTheme === 'function') ? jtd.getTheme() : document.documentElement.getAttribute('data-color-scheme');
-    const theme = normalize(current);
-    btn.textContent = theme === 'dark' ? 'Включить светлую тему' : 'Включить темную тему';
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    const saved = getSaved();
-    if (saved) applyTheme(saved);
-    updateButton();
-  });
-
-  btn.addEventListener('click', function(){
-    const current = (window.jtd && typeof jtd.getTheme === 'function') ? jtd.getTheme() : document.documentElement.getAttribute('data-color-scheme') || 'light';
-    const next = normalize(current) === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    updateButton();
-  });
-})();
-</script>
+<div style="position:fixed; top:0.75rem; right:0.75rem; z-index:9999;">
+  <button class="btn js-toggle-dark-mode" aria-label="Переключить тему">Включить темный режим</button>
+</div>
+<script src="/timetablebot-site/assets/js/theme-toggle.js"></script>
 
 ---
 
