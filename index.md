@@ -20,37 +20,53 @@ nav_order: 1
 <button class="btn js-toggle-dark-mode">Включить темный режим</button>
 
 <script>
-const toggleDarkMode = document.querySelector('.js-toggle-dark-mode');
+// Более надежный скрипт с проверкой на загрузку JTD
+(function() {
+  // Функция инициализации кнопки
+  function initThemeToggle() {
+    const toggleDarkMode = document.querySelector('.js-toggle-dark-mode');
+    if (!toggleDarkMode || typeof jtd === 'undefined') {
+      // Если JTD еще не загружен, попробуем позже
+      setTimeout(initThemeToggle, 100);
+      return;
+    }
 
-// Функция для установки текста кнопки
-function updateButtonText() {
-  if (jtd.getTheme() === 'dark') {
-    toggleDarkMode.textContent = 'Включить светлую тему';
+    // Функция для установки текста кнопки
+    function updateButtonText() {
+      const currentTheme = jtd.getTheme();
+      if (currentTheme === 'dark') {
+        toggleDarkMode.textContent = 'Включить светлую тему';
+      } else {
+        toggleDarkMode.textContent = 'Включить темную тему';
+      }
+    }
+
+    // Загрузить сохраненную тему при загрузке страницы
+    const savedTheme = localStorage.getItem('jtd-theme');
+    if (savedTheme && savedTheme !== jtd.getTheme()) {
+      jtd.setTheme(savedTheme);
+    }
+    updateButtonText();
+
+    // Обработчик клика на кнопку
+    toggleDarkMode.addEventListener('click', function(){
+      const currentTheme = jtd.getTheme();
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      jtd.setTheme(newTheme);
+      
+      // Сохранить выбор в localStorage
+      localStorage.setItem('jtd-theme', newTheme);
+      updateButtonText();
+    });
+  }
+
+  // Инициализировать при готовности DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
   } else {
-    toggleDarkMode.textContent = 'Включить темную тему';
+    initThemeToggle();
   }
-}
-
-// Загрузить сохраненную тему при загрузке страницы
-window.addEventListener('load', function() {
-  const savedTheme = localStorage.getItem('jtd-theme');
-  if (savedTheme) {
-    jtd.setTheme(savedTheme);
-  }
-  updateButtonText();
-});
-
-// Обработчик клика на кнопку
-jtd.addEvent(toggleDarkMode, 'click', function(){
-  if (jtd.getTheme() === 'dark') {
-    jtd.setTheme('light');
-  } else {
-    jtd.setTheme('dark');
-  }
-  // Сохранить выбор в localStorage
-  localStorage.setItem('jtd-theme', jtd.getTheme());
-  updateButtonText();
-});
+})();
 </script>
 
 ---
@@ -63,16 +79,16 @@ jtd.addEvent(toggleDarkMode, 'click', function(){
 
 | Платформа | Описание | Ссылка |
 |-----------|---------|--------|
-| **Почта** | Получение расписания на электронную почту | [Читать](link-pages/mail) |
-| **ВКонтакте** | Личные сообщения и чаты | [Читать](link-pages/vk) |
-| **Telegram** | Личные чаты и группы | [Читать](link-pages/telegram) |
-| **Discord** | Серверы | [Читать](link-pages/discord) |
-| **Календарь** | Google Календарь и Apple Календарь | [Читать](link-pages/calendar) |
+| **Почта** | Получение расписания на электронную почту | [Читать](/timetablebot-site/link-pages/mail/) |
+| **ВКонтакте** | Личные сообщения и чаты | [Читать](/timetablebot-site/link-pages/vk/) |
+| **Telegram** | Личные чаты и группы | [Читать](/timetablebot-site/link-pages/telegram/) |
+| **Discord** | Серверы | [Читать](/timetablebot-site/link-pages/discord/) |
+| **Календарь** | Google Календарь и Apple Календарь | [Читать](/timetablebot-site/link-pages/calendar/) |
 
 ---
 
 ## Дополнительно
 
-- [Описание вывода расписания](link-pages/outputdescription)
-- [О разработчике](link-pages/developer)
-- [Помощь и поддержка](link-pages/help)
+- [Описание вывода расписания](/timetablebot-site/link-pages/outputdescription/)
+- [О разработчике](/timetablebot-site/link-pages/developer/)
+- [Помощь и поддержка](/timetablebot-site/link-pages/help/)
