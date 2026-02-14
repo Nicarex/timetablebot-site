@@ -1,0 +1,9 @@
+{% comment %} Footer custom: show client-side last-modified when page.last_modified_date is not available {% endcomment %}
+{% if page.last_modified_date == nil %}
+  <p class="text-small mb-0" id="js-last-modified" style="display:none">Последнее изменение: <span id="js-last-modified-value"></span></p>
+  <script>
+    window.__page_path = "{{ page.path }}";
+    window.__github_repo = "{{ site.github_repo | default: 'nicarex/timetablebot-site' }}";
+  </script>
+  <script src="{{ '/assets/js/last-modified.js' | relative_url }}"></script>
+{% endif %}

@@ -1,6 +1,9 @@
 title: Timetable Bot
 remote_theme: pmarsceill/just-the-docs
 
+# GitHub repo used by client-side "last modified" lookup (owner/repo)
+github_repo: nicarex/timetablebot-site
+
 # enable plugin to expose Git last-modified info (used by just-the-docs footer)
 plugins:
   - jekyll-last-modified-at
