@@ -27,16 +27,16 @@ nav_order: 1
 
 | Платформа | Описание | Ссылка |
 |-----------|---------|--------|
-| **Почта** | Получение расписания на электронную почту | [Читать](/link-pages/mail) |
-| **ВКонтакте** | Личные сообщения и чаты | [Читать](/link-pages/vk) |
-| **Telegram** | Личные чаты и группы | [Читать](/link-pages/telegram) |
-| **Discord** | Серверы | [Читать](/link-pages/discord) |
-| **Календарь** | Google Календарь и Apple Календарь | [Читать](/link-pages/calendar) |
+| **Почта** | Получение расписания на электронную почту | [Читать](/timetablebot-site/link-pages/mail) |
+| **ВКонтакте** | Личные сообщения и чаты | [Читать](/timetablebot-site/link-pages/vk) |
+| **Telegram** | Личные чаты и группы | [Читать](/timetablebot-site/link-pages/telegram) |
+| **Discord** | Серверы | [Читать](/timetablebot-site/link-pages/discord) |
+| **Календарь** | Google Календарь и Apple Календарь | [Читать](/timetablebot-site/link-pages/calendar) |
 
 ---
 
 ## Дополнительно
 
-- [Описание вывода расписания](/link-pages/outputdescription)
-- [О разработчике](/link-pages/developer)
-- [Помощь и поддержка](/link-pages/help)
+- [Описание вывода расписания](/timetablebot-site/link-pages/outputdescription)
+- [О разработчике](/timetablebot-site/link-pages/developer)
+- [Помощь и поддержка](/timetablebot-site/link-pages/help)
